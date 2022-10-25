@@ -1,0 +1,45 @@
+### This would be the overall assignment and will be completed in RStudio and Copy & Paste to GitHub account for safety measures 
+
+
+## Put comments here that give an overall description of what your
+## functions do
+
+## Write a short comment describing this function
+  ##A "Matrix" fucntion able to grab an cache's inverse 
+
+makeCacheMatrix <- function(x = matrix()) {
+  i <- NULL
+  set <- function(y) {
+    x <<- y
+    i <<- NULL
+  }
+  get <- function() x 
+  setinverse <- function(inverse) i <<- inverse
+  getinverse <- function() i 
+  list(set = set,
+       get = get,
+       setinverse = setinverse,
+       getinverse = getinverse)
+}
+
+## Write a short comment describing this function
+  ## The following function listed below is to receive cache data 
+
+cacheSolve <- function(x, ...) {
+        ## Return a matrix that is the inverse of 'x'
+  i <- x$getinverse()
+  if (!is.null(i)) {
+    message("getting cached data")
+    return(i)
+  }
+  data <- x$get()
+  i <- solve(data,...)
+  x$setinverse(i)
+  i
+}
+
+# In order to test this theory run both functions in RStudio or R 
+# Once done test it by using 
+> B <- matrix(c(1,2,3,4),2,2)
+> B1 <- makeCacheMatrix(B)
+> cacheSolve(B1)
